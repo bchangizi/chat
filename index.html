@@ -2,57 +2,61 @@
 <html>
   <head>
     <title>Socket.IO chat</title>
-    <style>
-      * { margin: 0; padding: 0; box-sizing: border-box; }
-      body { font: 13px Helvetica, Arial; }
-      form { background: #000; padding: 2px; top: 0; width: 100%; height: 40px;}
-      form input { border: 0; padding: 10px; width: 90%; height: 34px; margin-right: .5%;}
-      form #button-submit { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
-      #messages { list-style-type: none; margin: 0; padding: 0; }
-      #messages li { padding: 5px 10px; }
-      #messages li:nth-child(odd) { background: #eee; }
-      #right-list {background: #000; width: 200px; min-height: 100px; position: fixed; right: 0; top: 40px;}
-      #users { list-style-type: none; margin: 0px 2px 2px 2px; padding: 0; }
-      #users li { padding: 5px; background: #eee};
-    </style>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/resources/main.css">
+
   </head>
 
   <body>
 
-    <form id="chat-form" action="">
-      <input id="m" autocomplete="off" /><input id="button-submit" type="submit" value="Send">
-    </form>
-    <ul id="messages"></ul>
-    <div id="right-list">
-      <ul id="users">
-        <li><b>users list:</b></li>
-      </ul>
+    <div class="row">
+
+        <div class="col-md-9">
+            <form class="form-inline" id="chat-form" action="">
+                <div class="row">
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" id="m" placeholder="Message" aria-describedby="basic-addon2">                         </div>
+              		<div class="col-md-3">
+                		<button type="submit" class="btn btn-primary" id="button-submit">Send</button>
+                   	</div>
+                </div>
+            </form>
+
+
+            <div role="tabpanel">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#global" aria-controls="global" role="tab" data-toggle="tab">Global</a></li>
+                <li role="presentation"><a href="#newroom" aria-controls="global" role="tab" data-toggle="tab">New Room</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="global">
+                    <ul id="messages"></ul>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="newroom">...</div>
+            </div>
+
+            </div>
+
+
+
+        </div>
+        <div class="col-md-3">
+            <ul id="users" class="list-group">
+                <li class="list-group-item"><span class="glyphicon glyphicon-user"></span><b> users list:</b></li>
+            </ul>
+        </div>
+
     </div>
 
-
     <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
-    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
-    <script>
-      var socket = io();
-
-      socket.on('connect', function(){
-		      socket.emit('adduser', prompt("What's your name?"));
-	    });
-
-      socket.on('updatechat', function (username, data) {
-    		$('#messages').append('<li data-user="' + username + '"><b>'+username + '</b>: ' + data +'</li>');
-    	});
-
-      socket.on('updateroom', function (data) {
-        $('#users').append('<li>' + data + '</li>');
-      })
-
-      $('#chat-form').submit(function( event ){
-        socket.emit('sendchat', $('#m').val());
-        $('#m').val('');
-        return false;
-      });
-    </script>
+    <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <script src="/resources/main.js"></script>
 
   </body>
 </html>
