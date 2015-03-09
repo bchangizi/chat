@@ -2,71 +2,92 @@
 <html>
 
 <head>
-    <title>Socket.IO chat</title>
+	<title>Socket.IO chat</title>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="/resources/main.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/resources/main.css">
 
 </head>
 
 <body>
 
-    <div class="container-fluid">
+	<div class="container-fluid">
 
-        <div class="row">
-            <form id="chat-form" action="">
-                <div class="col-md-9">
-                    <input type="text" class="form-control" id="m" placeholder="Message" aria-describedby="basic-addon2">
-                </div>
-                <div class="col-md-3">
-                    <button type="submit" class="btn btn-primary" id="button-submit">Send</button>
-                </div>
-            </form>
-        </div>
+		<div class="row">
+			<form id="chat-form" action="">
+				<div class="col-md-9">
+					<input type="text" class="form-control" id="m" placeholder="Message" aria-describedby="basic-addon2">
+				</div>
+				<div class="col-md-3">
+					<button type="submit" class="btn btn-primary" id="button-submit">Send</button>
+				</div>
+			</form>
+		</div>
 
-        <div role="tabpanel" id="chat-tabpanel">
+		<div role="tabpanel" id="chat-tabpanel">
 
-            <ul class="nav nav-tabs" role="tablist">
-                <li role="presentation" class="active"><a href="#global" aria-controls="global" role="tab" data-toggle="tab">Global</a></li>
-                <li role="presentation"><a href="#newroom" aria-controls="global" role="tab" data-toggle="tab">New Room</a></li>
-            </ul>
+			<ul class="nav nav-tabs" role="tablist">
+				<li><a href="#newroom">+</a>
+				</li>
+				<li role="presentation" class="hidden"><a href="#newroom" aria-controls="newroom" role="tab" data-toggle="tab">+</a>
+				</li>
+				<li role="presentation" class="active"><a href="#global" aria-controls="global" role="tab" data-toggle="tab">Global</a>
+				</li>
 
-            <div class="tab-content">
-                <div role="tabpanel" class="tab-pane active" id="global">
+			</ul>
 
-                    <div class="row">
-                        <div class="col-md-9">
-                            <ul class="messages"></ul>
-                        </div>
-                        <div class="col-md-3">
-                            <ul class="users list-group">
-                                <li class="list-group-item"><span class="glyphicon glyphicon-user"></span><b> users list:</b></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div role="tabpanel" class="tab-pane" id="newroom">
-                    <div class="row">
-                        <div class="col-md-9">
-                            <ul class="messages"></ul>
-                        </div>
-                        <div class="col-md-3">
-                            <ul class="users list-group">
-                                <li class="list-group-item"><span class="glyphicon glyphicon-user"></span><b> users list:</b></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
+			<div class="tab-content">
 
-        </div>
+				<div role="tabpanel" class="tab-pane" id="newroom">
+					<div class="row">
+						<div class="col-md-9">
+							<ul class="messages"></ul>
+						</div>
+						<div class="col-md-3">
+						<div class="row no-margin">
+							<form class="add-user" action="">
+							<div class="col-md-9">
+								<div class="form-group users-input">
+									<label class="sr-only" for="userName">User</label>
+									<input type="text" class="form-control" id="userName" placeholder="User Name">
+								</div></div><div class="col-md-3">
+								<button type="submit" class="btn btn-default">Invite</button></div>
+							</form>
+							<div class="col-md-12">
+							<ul class="users list-group">
+								<li class="list-group-item"><span class="glyphicon glyphicon-user"></span><b> users list:</b>
+								</li>
+							</ul></div>
+							</div>
+						</div>
+					</div>
+				</div>
 
-    </div>
+				<div role="tabpanel" class="tab-pane active" id="global">
 
-    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
-    <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-    <script src="/resources/main.js"></script>
+					<div class="row">
+						<div class="col-md-9">
+							<ul class="messages"></ul>
+						</div>
+						<div class="col-md-3">
+							<ul class="users list-group">
+								<li class="list-group-item"><span class="glyphicon glyphicon-user"></span><b> users list:</b>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+	<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+	<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+	<script src="/resources/main.js"></script>
 
 </body>
 
