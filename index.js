@@ -23,13 +23,13 @@ var rooms = ['global'];
 io.on('connection', function (socket) {
 
     socket.on('adduser', function (username) {
-		socket.username = username;
+        socket.username = username;
         socket.room = 'global';
-		usernames[username] = username;
+        usernames[username] = username;
         socket.join('global');
-		socket.emit('updateroom', username);
+        socket.emit('updateroom', username);
         socket.emit('updatechat', 'SERVER', username + ' has connected to this chat');
-	});
+    });
 
     socket.on('sendchat', function (data) {
         io.emit('updatechat', socket.username, data);
