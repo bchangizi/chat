@@ -22,16 +22,24 @@ var rooms = ['global'];
 
 io.on('connection', function (socket) {
 
-    socket.on('adduser', function (username) {
+    socket.on('adduser', function (room, username) {
         socket.username = username;
-        socket.room = 'global';
-        usernames[username] = username;
-        socket.join('global');
-        socket.emit('updateroom', username);
-        socket.emit('updatechat', 'SERVER', username + ' has connected to this chat');
+        if(typeof usernames[room] === 'undefined') {
+           usernames[room] = {};
+        }
+        usernames[room][username] = username;
+        socket.room = room;
+        socket.join(room);
+        io.to(room).emit('updateroom', room, usernames[room]);
+//        io.to(room).emit('updatechat', room, 'INFO', username + ' has connected to this chat');
     });
 
-    socket.on('sendchat', function (data) {
-        io.emit('updatechat', socket.username, data);
+    socket.on('sendchat', function (room, data) {
+        io.to(room).emit('updatechat', room, socket.username, data);
+    });
+
+    socket.on('disconnect', function () {
+        delete usernames[socket.username];
+        io.emit('updateroom', usernames);
     });
 });

@@ -1,17 +1,9 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 body {
   font: 13px Helvetica, Arial;
 }
 
 form {
-  padding: 3px;
   top: 0;
-  width: 100%;
 }
 
 #button-submit {
@@ -22,25 +14,23 @@ form {
 	width: 100%;
 }
 
-#messages {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
+.messages {
+    list-style: none;
+    padding: 0px;
 }
 
-#messages li {
-  padding: 5px 10px;
+.messages li {
+    padding: 2px;
 }
 
-#messages li:nth-child(odd) {
-  background: #eee;
+.messages li:nth-child(odd) {
+    background: #eee;
 }
 
+#chat-tabpanel {
+    margin-top: 15px;
+}
 
-#right-list {
-    width: 200px;
-    min-height: 100px;
-    position: fixed;
-    right: 5px;
-    top: 5px;
+#chat-tabpanel .tab-pane {
+    padding-top: 10px;
 }
