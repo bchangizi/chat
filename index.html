@@ -1,14 +1,15 @@
 <!doctype html>
 <html>
-  <head>
+
+<head>
     <title>Socket.IO chat</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/resources/main.css">
 
-  </head>
+</head>
 
-  <body>
+<body>
 
     <div class="row">
 
@@ -16,29 +17,30 @@
             <form class="form-inline" id="chat-form" action="">
                 <div class="row">
                     <div class="col-md-9">
-                        <input type="text" class="form-control" id="m" placeholder="Message" aria-describedby="basic-addon2">                         </div>
-              		<div class="col-md-3">
-                		<button type="submit" class="btn btn-primary" id="button-submit">Send</button>
-                   	</div>
+                        <input type="text" class="form-control" id="m" placeholder="Message" aria-describedby="basic-addon2">
+                    </div>
+                    <div class="col-md-3">
+                        <button type="submit" class="btn btn-primary" id="button-submit">Send</button>
+                    </div>
                 </div>
             </form>
 
 
             <div role="tabpanel">
 
-            <!-- Nav tabs -->
-            <ul class="nav nav-tabs" role="tablist">
-                <li role="presentation" class="active"><a href="#global" aria-controls="global" role="tab" data-toggle="tab">Global</a></li>
-                <li role="presentation"><a href="#newroom" aria-controls="global" role="tab" data-toggle="tab">New Room</a></li>
-            </ul>
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#global" aria-controls="global" role="tab" data-toggle="tab">Global</a></li>
+                    <li role="presentation"><a href="#newroom" aria-controls="global" role="tab" data-toggle="tab">New Room</a></li>
+                </ul>
 
-            <!-- Tab panes -->
-            <div class="tab-content">
-                <div role="tabpanel" class="tab-pane active" id="global">
-                    <ul id="messages"></ul>
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="global">
+                        <ul id="messages"></ul>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="newroom">...</div>
                 </div>
-                <div role="tabpanel" class="tab-pane" id="newroom">...</div>
-            </div>
 
             </div>
 
@@ -46,11 +48,10 @@
 
         </div>
         <div class="col-md-3">
-            <ul id="users" class="list-group">
+             <ul id="users" class="list-group">
                 <li class="list-group-item"><span class="glyphicon glyphicon-user"></span><b> users list:</b></li>
             </ul>
         </div>
-
     </div>
 
     <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
@@ -58,5 +59,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <script src="/resources/main.js"></script>
 
-  </body>
+</body>
+
 </html>

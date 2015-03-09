@@ -35,4 +35,3 @@ io.on('connection', function (socket) {
         io.emit('updatechat', socket.username, data);
     });
 });
-
