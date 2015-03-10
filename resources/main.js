@@ -4,12 +4,40 @@
 /*global prompt */
 /*global alert */
 /*global confirm */
+/*global document */
 
 "use strict";
 var socket = io();
 
 var username;
-var globalUsers;
+var globalUsers = [];
+var typeaheads = [];
+
+var substringMatcher = function (strs) {
+    return function findMatches(q, cb) {
+        var matches, substrRegex;
+
+        // an array that will be populated with substring matches
+        matches = [];
+
+        // regex used to determine if a string contains the substring `q`
+        substrRegex = new RegExp(q, 'i');
+
+        // iterate through the pool of strings and for any string that
+        // contains the substring `q`, add it to the `matches` array
+        $.each(strs, function (i, str) {
+            if (substrRegex.test(str)) {
+                // the typeahead jQuery plugin expects suggestions to a
+                // JavaScript object, refer to typeahead docs for more info
+                matches.push({
+                    value: str
+                });
+            }
+        });
+
+        cb(matches);
+    };
+};
 
 socket.on('connect', function () {
     socket.emit('adduser', 'global', username = prompt("What's your name?"));
@@ -26,6 +54,23 @@ socket.on('updatechat', function (room, username, data) {
 socket.on('updateroom', function (room, data) {
     if (room === 'global') {
         globalUsers = data;
+        for(var i in typeaheads) {
+            console.log(typeaheads[i]);
+            typeaheads[i].data('typeahead').source = substringMatcher(globalUsers);
+        }
+//        typeaheads.each(function () {
+//            $(this).data('typeahead').source = substringMatcher(globalUsers);
+//        });
+        //        $('.typeahead').typeahead('destroy');
+        //        $('.typeahead').typeahead({
+        //            hint: true,
+        //            highlight: true,
+        //            minLength: 1
+        //        }, {
+        //            name: 'states',
+        //            displayKey: 'value',
+        //            source: substringMatcher(globalUsers)
+        //        });
     }
     $('#' + room + ' .users li:not(:first)').remove();
     for (var user in data) {
@@ -57,6 +102,7 @@ $('#chat-form').submit(function (event) {
 });
 
 $('#chat-tabpanel .nav-tabs a:first').on('click', function (e) {
+
     e.preventDefault();
     var d = new Date();
     var room = d.getTime() + d.getMilliseconds();
@@ -65,7 +111,17 @@ $('#chat-tabpanel .nav-tabs a:first').on('click', function (e) {
     var content = $('.tab-content #newroom').clone().html();
 
     $('#chat-tabpanel .nav-tabs').append('<li role="presentation">' + tab.replace('newroom', room).replace('+', 'Room ' + room) + '</li>');
-    $('#chat-tabpanel .tab-content').append('<div role="tabpanel" class="tab-pane active" id="' + room + '">' + content + '</div>');
+    $('#chat-tabpanel .tab-content').append('<div role="tabpanel" class="tab-pane active custom-room" id="' + room + '">' + content + '</div>');
+
+    typeaheads[room] = $('#' + room + ' .typeahead').typeahead({
+        hint: true,
+        highlight: true,
+        minLength: 1
+    }, {
+        name: 'states',
+        displayKey: 'value',
+        source: substringMatcher(globalUsers)
+    });
 
     $('#chat-tabpanel .nav-tabs a:last').tab('show');
     socket.emit('adduser', room, username);
