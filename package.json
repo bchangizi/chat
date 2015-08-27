@@ -9,5 +9,8 @@
   "main": "index.js",
   "engines": {
     "node": "0.10.x"
+  },
+  "scripts": {
+    "start": "node index.js"
   }
 }
